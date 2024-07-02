@@ -1,0 +1,14 @@
+{
+  "name": "hope-hacks-6",
+  "version": "1.0.0",
+  "description": "Hope Hacks Project Team 6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.77.6"
+  }
+}
