@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Calendar</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href='https://unpkg.com/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+</head>
+<body>
+    <h1>Events Calendar</h1>
+    <div id='calendar'></div>
+
+    <h2>Submit Event</h2>
+    <form id="eventForm">
+        <label for="title">Event Title:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="start">Start Date:</label>
+        <input type="datetime-local" id="start" name="start" required>
+        <label for="end">End Date:</label>
+        <input type="datetime-local" id="end" name="end" required>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Modal Structure -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p><strong>Start:</strong> <span id="modalStart"></span></p>
+            <p><strong>End:</strong> <span id="modalEnd"></span></p>
+            <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+            <button id="deleteEventButton">Delete Event</button>
+        </div>
+    </div>
+    <script src='https://unpkg.com/fullcalendar@5.10.1/main.min.js'></script>
+    <script src="events-calender/public/script.js"></script>
+</html>
