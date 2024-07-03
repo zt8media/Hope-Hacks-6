@@ -1,9 +1,9 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
 const path = require('path');
-const sequelize = require('./config.js'); // Assuming config.js includes Sequelize configurations
-const Event = require('./config.js'); // Assuming the same file exports your Event model
+const sequelize = require('./events-calender/config.js');
+const Event = require('./event');
 
 
 const app = express();
@@ -38,42 +38,23 @@ app.post('/events', async (req, res) => {
             description: req.body.description,
         });
 
-        // Send confirmation email
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'your-email@gmail.com',
-                pass: 'your-email-password',
-            },
-        });
-
-        let mailOptions = {
-            from: 'your-email@gmail.com',
-            to: 'recipient-email@gmail.com',
-            subject: 'Event Confirmation',
-            text: `Your event "${event.title}" has been added successfully!`,
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error);
-            }
-            console.log('Email sent: ' + info.response);
-        });
-
         res.status(201).json(event);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
 });
 
-// API endpoint to delete an event
-app.delete('/events/:id', async (req, res) => {
+// API endpoint to update an event
+app.put('/events/:id', async (req, res) => {
     try {
         const event = await Event.findByPk(req.params.id);
         if (event) {
-            await event.destroy();
-            res.status(204).json({ message: 'Event deleted successfully' });
+            event.title = req.body.title;
+            event.start = req.body.start;
+            event.end = req.body.end;
+            event.description = req.body.description;
+            await event.save();
+            res.json(event);
         } else {
             res.status(404).json({ message: 'Event not found' });
         }
